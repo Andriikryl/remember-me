@@ -1,7 +1,16 @@
 <template>
-    <span class="item"></span>
+    <span :class="'item ' + (filed.value === 1 ? 'item__active' : '')"></span>
 </template>
 <script>
+    export default {
+        name: "BoardItem",
+        props: {
+            filed: {
+                type: Object,
+                required: true,
+            },
+        },
+    }
 </script>
 <style scoped>
 .item{
@@ -13,5 +22,11 @@
     cursor: pointer;
     background-color: #fcc300;
     display: inline-block;
+    transition: .4s ease-in-out;
+    transform-style: preserve-3d;
+}
+.item__active{
+    background-color: red;
+    transform: rotateX(180deg);
 }
 </style>
