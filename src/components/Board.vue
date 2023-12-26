@@ -1,7 +1,8 @@
     <script>
     import BoardItem from "./BoardItem/BoardItem.vue"
     import {onBeforeMount, ref} from "vue"
-import useGameInit from "./composebels/useGameInit"
+    import useGameInit from "./composebels/useGameInit"
+    import useGameStart from "./composebels/useGameStart"
     export default {
         name: "Board",
         props:{},
@@ -12,33 +13,17 @@ import useGameInit from "./composebels/useGameInit"
      
             const number = 25
             const {dificult, init, fileds} = useGameInit(number)
+            const {start, preview} = useGameStart(init, fileds, dificult, number)
 
             return {
                 number,
                 dificult,
                 fileds,
-                init
+                init, 
+                start,
+                preview
             }
         },
-        methods:{
-            start(){
-                this.init(),
-                this.prepereGame()
-            },
-            prepereGame(){
-                for(let i = 0; i < this.dificult; i++){
-                    const index = this.rand(0, this.number - 1);
-                    if(this.fileds[index].value !== 1){
-                        this.fileds[index].value = 1
-                    } else {
-                        i--
-                    }
-            }
-        },
-        rand(min, max){
-            return Math.floor(Math.random() * (max - min) + min)
-        }
-   }
 }
 
     </script>
@@ -46,7 +31,7 @@ import useGameInit from "./composebels/useGameInit"
 <template>
 <div class="wrapper">
     <div>
-        <BoardItem v-for="filed in fileds" :filed="filed" key="filed.id"/>
+        <BoardItem :preview="preview" v-for="filed in fileds" :filed="filed" key="filed.id"/>
     </div>
 </div>
 <div class="controll__group">

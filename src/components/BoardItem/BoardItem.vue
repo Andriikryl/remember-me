@@ -1,5 +1,5 @@
 <template>
-    <span :class="'item ' + (filed.value === 1 ? 'item__active' : '')"></span>
+    <span :class="'item ' + (filed.value === 1 && preview ? 'item__active' : '')"></span>
 </template>
 <script>
     export default {
@@ -9,6 +9,11 @@
                 type: Object,
                 required: true,
             },
+            preview:{
+                type: Boolean,
+                required: false,
+                default: false
+            }
         },
     }
 </script>
