@@ -1,6 +1,7 @@
     <script>
     import BoardItem from "./BoardItem/BoardItem.vue"
     import {onBeforeMount, ref} from "vue"
+import useGameInit from "./composebels/useGameInit"
     export default {
         name: "Board",
         props:{},
@@ -8,21 +9,10 @@
         BoardItem
         },
         setup(){
-            let fileds = ref([])
+     
             const number = 25
-            let dificult = ref(2);
-            const init = () => {
-                fileds.value = [];
+            const {dificult, init, fileds} = useGameInit(number)
 
-                for(let i = 0; i < number; i++){
-                    fileds.value.push({
-                        id: i,
-                        clicked: false,
-                        value: 0,
-                    })
-                }
-            }
-            onBeforeMount(init)
             return {
                 number,
                 dificult,
